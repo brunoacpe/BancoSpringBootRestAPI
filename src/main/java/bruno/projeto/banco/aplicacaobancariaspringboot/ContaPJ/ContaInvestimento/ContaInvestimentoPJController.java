@@ -3,7 +3,7 @@ package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPJ.ContaInvestiment
 import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPJ.ContaPJ;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaPJ.CNPJNãoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaPJ.ContaPJInvestimentoJaCadastradaComCNPJ;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaInvestimentoPJRepository;
+
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPJRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
