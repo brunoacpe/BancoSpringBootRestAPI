@@ -1,7 +1,7 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente;
 
 import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.CPFNaoExistente;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.CPFNaoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFRepository;
 

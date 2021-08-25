@@ -1,20 +1,15 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.CPFNaoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.SaldoInsuficienteContaCorrentePF;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteContaCorrentePF;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

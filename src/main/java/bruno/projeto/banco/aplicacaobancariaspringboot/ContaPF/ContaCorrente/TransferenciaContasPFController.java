@@ -1,6 +1,6 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.CPFNaoExistente;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.CPFNaoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

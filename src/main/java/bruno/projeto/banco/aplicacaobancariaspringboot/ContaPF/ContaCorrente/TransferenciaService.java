@@ -32,6 +32,7 @@ public class TransferenciaService {
             throw new ContaDesativadaException();
         }
         service.sacarContaCorrentePF(conta1, valor);
+        service.depositarContaCorrentePF(conta1,6.50);
         service.depositarContaCorrentePF(conta2, valor);
         log.info("Transferencia com valor de {} R$ da conta com CPF :{} para a conta com CPF: {}", valor, conta1.getConta().getCpf(), conta2.getConta().getCpf());
         Transferencia transferencia = new Transferencia(conta1.getConta().getCpf(), conta2.getConta().getCpf(), BigDecimal.valueOf(valor));

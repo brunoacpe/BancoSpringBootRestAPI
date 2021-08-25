@@ -1,8 +1,6 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPoupança;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContaCorrentePF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContaCorrentePFDTO;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.SaldoInsuficienteContaCorrentePF;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteContaCorrentePF;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFPoupancaRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

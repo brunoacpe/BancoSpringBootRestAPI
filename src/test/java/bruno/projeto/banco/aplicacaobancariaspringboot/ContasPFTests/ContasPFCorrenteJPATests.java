@@ -1,14 +1,10 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContasPFTests;
 
 import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContaCorrentePF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContasPFCorrenteService;
 import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.SaldoInsuficienteContaCorrentePF;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

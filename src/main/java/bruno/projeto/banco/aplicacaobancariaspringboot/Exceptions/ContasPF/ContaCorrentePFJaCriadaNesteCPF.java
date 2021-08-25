@@ -1,4 +1,4 @@
-package bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions;
+package bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF;
 
 public class ContaCorrentePFJaCriadaNesteCPF extends RuntimeException{
 

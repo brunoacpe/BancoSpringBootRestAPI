@@ -1,6 +1,8 @@
-package bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions;
+package bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF;
 
 
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ExceptionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

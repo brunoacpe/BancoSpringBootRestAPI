@@ -1,7 +1,6 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF;
 
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaPFJaCadastradaComCPF;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

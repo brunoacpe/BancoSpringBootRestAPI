@@ -12,7 +12,7 @@ public class ExceptionResponse extends RuntimeException{
     private String exceptionMessage;
     private String details;
 
-    ExceptionResponse(String exceptionMessage, String details) {
+    public ExceptionResponse(String exceptionMessage, String details) {
         this.exceptionMessage = exceptionMessage;
         this.details = details;
     }
