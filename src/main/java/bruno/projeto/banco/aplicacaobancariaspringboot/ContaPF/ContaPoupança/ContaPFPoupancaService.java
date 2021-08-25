@@ -1,6 +1,6 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPoupança;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteContaCorrentePF;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteParaSaque;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFPoupancaRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class ContaPFPoupancaService {
             return ContaPoupancaPFDTO.convert(conta);
         }
         log.info("Saldo insuficiente para sacar. CPF da conta {}", conta.getConta().getCpf());
-        throw new SaldoInsuficienteContaCorrentePF();
+        throw new SaldoInsuficienteParaSaque();
     }
 
 

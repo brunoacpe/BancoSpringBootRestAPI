@@ -1,15 +1,15 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF;
 
-public class SaldoInsuficienteContaCorrentePF extends RuntimeException{
+public class SaldoInsuficienteParaSaque extends RuntimeException{
 
     private static final String DEFAULT_MESSAGE = "Saldo insuficiente para saque.";
 
 
-    public SaldoInsuficienteContaCorrentePF(){
+    public SaldoInsuficienteParaSaque(){
         this(DEFAULT_MESSAGE);
     }
 
-    public SaldoInsuficienteContaCorrentePF(String message){
+    public SaldoInsuficienteParaSaque(String message){
         super(message);
     }
 }

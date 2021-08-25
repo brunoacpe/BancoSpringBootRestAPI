@@ -1,19 +1,20 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPJ.ContaInvestimento;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPJ.ContaPJ;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaPJ.CNPJNãoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaPJ.ContaPJInvestimentoJaCadastradaComCNPJ;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteParaSaque;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaInvestimentoPJRepository;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPJRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-
+@Slf4j
 @Service
 public class ContaInvestimentoPJService {
+    private static final BigDecimal TAXA_SAQUE = BigDecimal.valueOf(10.50);
     private static final BigDecimal RENDIMENTO_ANUAL = BigDecimal.valueOf(0.04);
     private final ContaPJRepository repository2;
     private final ContaInvestimentoPJRepository repository;
@@ -71,5 +72,17 @@ public class ContaInvestimentoPJService {
         conta.setSaldo(saldoComAcrescimoTaxa.add(saldoAtual));
         repository.save(conta);
         return conta;
+    }
+
+    public ContaInvestimentoPJ sacar(ContaInvestimentoPJ conta, Double valor) {
+        BigDecimal saldoAtual = conta.getSaldo();
+        int checarTransacao = saldoAtual.add(TAXA_SAQUE).compareTo(BigDecimal.valueOf(valor));
+        if (checarTransacao == 1) {
+            BigDecimal decrescimoSaldo = BigDecimal.valueOf(valor);
+            conta.setSaldo(saldoAtual.subtract(decrescimoSaldo).subtract(TAXA_SAQUE));
+            return repository.save(conta);
+        }
+        log.info("Saldo insuficiente para sacar este valor. CNPJ da conta : {}", conta.getConta().getCnpj());
+        throw new SaldoInsuficienteParaSaque();
     }
 }

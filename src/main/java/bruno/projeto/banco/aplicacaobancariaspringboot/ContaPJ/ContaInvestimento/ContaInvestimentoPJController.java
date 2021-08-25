@@ -51,6 +51,14 @@ public class ContaInvestimentoPJController {
         return ResponseEntity.ok().body(service.depositar(conta,valor));
     }
 
+    @PutMapping("/sacar/{cnpj}")
+    public ResponseEntity<ContaInvestimentoPJ> sacarContaInvestimentoPJ(@PathVariable String cnpj, @RequestParam Double valor){
+        log.info("Request put para sacar da conta com CNPJ{}", cnpj);
+        ContaInvestimentoPJ conta = service.findByCnpj(cnpj);
+        service.checarSeEstaAtiva(conta);
+        return ResponseEntity.ok().body(service.sacar(conta,valor));
+    }
+
     @PutMapping("/investir/{cnpj}")
     public ResponseEntity<ContaInvestimentoPJ> renderInvestimentoContaInvestimentoPJ(@PathVariable String cnpj){
         log.info("Request put para render os investimentos na conta com CNPJ {}", cnpj);

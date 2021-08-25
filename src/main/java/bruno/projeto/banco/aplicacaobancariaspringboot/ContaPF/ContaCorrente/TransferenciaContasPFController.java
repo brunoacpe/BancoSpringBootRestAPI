@@ -4,6 +4,7 @@ import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.CPFNa
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class TransferenciaContasPFController {
         return ResponseEntity.ok().body(service.fazerTransferencia(conta1, conta2, valorTransferido));
 
     }
-
+    @GetMapping("/findAll")
     public ResponseEntity<List<Transferencia>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }

@@ -29,8 +29,8 @@ public class ExceptionHandlerControllerPF {
         );
     }
 
-    @ExceptionHandler(SaldoInsuficienteContaCorrentePF.class)
-    public ResponseEntity<ExceptionResponse> handleSaldoInsuficienteContaCorrentePF(SaldoInsuficienteContaCorrentePF e){
+    @ExceptionHandler(SaldoInsuficienteParaSaque.class)
+    public ResponseEntity<ExceptionResponse> handleSaldoInsuficienteContaCorrentePF(SaldoInsuficienteParaSaque e){
         log.info("Saldo insuficiente para sacar.");
         return new ResponseEntity<>(
                 new ExceptionResponse(e.getMessage(),"Saldo insuficiente."),

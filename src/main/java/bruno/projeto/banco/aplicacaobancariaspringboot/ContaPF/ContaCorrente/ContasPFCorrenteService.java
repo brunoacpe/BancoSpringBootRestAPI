@@ -1,7 +1,7 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente;
 
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteContaCorrentePF;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContasPF.SaldoInsuficienteParaSaque;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class ContasPFCorrenteService {
             return ContaCorrentePFDTO.of(conta);
         }
         log.info("Saldo insuficiente para sacar. CPF da conta {}", conta.getConta().getCpf());
-        throw new SaldoInsuficienteContaCorrentePF();
+        throw new SaldoInsuficienteParaSaque();
 
     }
 
