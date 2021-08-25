@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Slf4j
 @RestController
@@ -41,7 +41,7 @@ public class ContaPFCorrenteController {
     public ResponseEntity<ContaCorrentePFDTO> createContaCorrentePF(@RequestBody ContaCorrentePF contaCorrentePF) {
         log.info("Requisição post para criar uma conta corrente PF nova com o CFP {}", contaCorrentePF.getConta().getCpf());
         contaCorrentePF.setActive(true);
-        ContaPF contaPF = repository2.findByCpf(contaCorrentePF.getConta().getCpf()).get();
+        ContaPF contaPF = repository2.findByCpf(contaCorrentePF.getConta().getCpf()).orElseThrow(CPFNaoExistente::new);
         if (repository.findByConta(contaPF).isPresent()) {
             log.info("Tentativa de criação de conta corrente PF em um CPF que já existe. CPF: {}", contaCorrentePF.getConta().getCpf());
             return ResponseEntity.badRequest().body(null);
@@ -58,16 +58,16 @@ public class ContaPFCorrenteController {
     @PutMapping("/sacar/{cpf}")
     public ResponseEntity<ContaCorrentePFDTO> sacarContaCorrentePF(@PathVariable String cpf, @RequestParam Double valor) {
         log.info("Requisição post para sacar da conta com CPF: {}", cpf);
-        Optional<ContaCorrentePF> conta = repository.findByConta(repository2.findByCpf(cpf).get());
-        return ResponseEntity.ok().body(service.sacarContaCorrentePF(conta.get(), valor));
+        ContaCorrentePF contaCorrentePF = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
+        return ResponseEntity.ok().body(service.sacarContaCorrentePF(contaCorrentePF, valor));
     }
 
     @PutMapping("/depositar/{cpf}")
     public ResponseEntity<ContaCorrentePFDTO> depositarContaCorrentePF(@PathVariable String cpf, @RequestParam Double valor) {
         log.info("Requisição post para depositar o valor de {} R$ na conta com CPF: {}", valor, cpf);
 
-        Optional<ContaCorrentePF> conta = repository.findByConta_Cpf(cpf);
-        return ResponseEntity.ok().body(service.depositarContaCorrentePF(conta.get(), valor));
+        ContaCorrentePF conta = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
+        return ResponseEntity.ok().body(service.depositarContaCorrentePF(conta, valor));
     }
 
     @GetMapping("/saldo/{cpf}")
@@ -80,7 +80,7 @@ public class ContaPFCorrenteController {
     @PutMapping("/desativar/{cpf}")
     public ResponseEntity<ContaCorrentePFDTO> desativarConta(@PathVariable String cpf) {
         log.info("Requisição put para desativar conta corrente PF com o CPF: {}", cpf);
-        ContaCorrentePF conta = repository.findByConta_Cpf(cpf).get();
+        ContaCorrentePF conta = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
         conta.setActive(false);
         repository.save(conta);
         log.info("Conta corrente PF com CPF: {} desativada.", cpf);
@@ -90,7 +90,7 @@ public class ContaPFCorrenteController {
     @PutMapping("/ativar/{cpf}")
     public ResponseEntity<ContaCorrentePFDTO> ativarConta(@PathVariable String cpf) {
         log.info("Requisição put para ativar conta corrente PF com o CPF: {}", cpf);
-        ContaCorrentePF conta = repository.findByConta_Cpf(cpf).get();
+        ContaCorrentePF conta = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
         conta.setActive(true);
         repository.save(conta);
         log.info("Conta corrente PF com CPF: {} ativada.", cpf);

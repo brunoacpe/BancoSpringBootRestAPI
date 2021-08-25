@@ -1,5 +1,6 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente;
 
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.CPFNaoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("transferir")
@@ -31,13 +32,11 @@ public class TransferenciaContasPFController {
             @PathVariable String cpf2,
             @RequestParam Double valorTransferido
     ) {
-        Optional<ContaCorrentePF> conta1 = repository.findByConta_Cpf(cpf1);
-        Optional<ContaCorrentePF> conta2 = repository.findByConta_Cpf(cpf2);
-        if (conta1.isPresent() && conta2.isPresent()) {
-            return ResponseEntity.ok().body(service.fazerTransferencia(conta1.get(), conta2.get(), valorTransferido));
-        }
+        ContaCorrentePF conta1 = repository.findByConta_Cpf(cpf1).orElseThrow(CPFNaoExistente::new);
+        ContaCorrentePF conta2 = repository.findByConta_Cpf(cpf2).orElseThrow(CPFNaoExistente::new);
 
-        return null;
+        return ResponseEntity.ok().body(service.fazerTransferencia(conta1, conta2, valorTransferido));
+
     }
 
     public ResponseEntity<List<Transferencia>> findAll() {

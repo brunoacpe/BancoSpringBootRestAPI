@@ -69,7 +69,7 @@ public class ContaPFPoupancaService {
 
     @PutMapping
     public ContaPoupancaPFDTO desativarConta(String cpf) {
-        log.info("Requisição put para desativar a conta com CPF: {}",cpf);
+        log.info("Requisição put para desativar a conta poupança PF com CPF: {}",cpf);
         ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).get();
         contaPoupancaPF.setActive(false);
         repository.save(contaPoupancaPF);
@@ -78,7 +78,7 @@ public class ContaPFPoupancaService {
 
     @PutMapping
     public ContaPoupancaPFDTO ativarConta(String cpf) {
-        log.info("Requisição put para re-ativar a conta com CPF: {}",cpf);
+        log.info("Requisição put para re-ativar a conta poupança PF com CPF: {}",cpf);
         ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).get();
         contaPoupancaPF.setActive(true);
         repository.save(contaPoupancaPF);

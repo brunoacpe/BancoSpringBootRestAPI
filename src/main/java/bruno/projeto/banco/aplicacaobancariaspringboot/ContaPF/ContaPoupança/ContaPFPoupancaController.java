@@ -1,10 +1,10 @@
 package bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPoupança;
 
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContaCorrentePF;
-import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaCorrente.ContaCorrentePFDTO;
+
 import bruno.projeto.banco.aplicacaobancariaspringboot.ContaPF.ContaPF;
+import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.CPFNaoExistente;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Exceptions.ContaDesativadaException;
-import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFCorrenteRepository;
+
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFPoupancaRepository;
 import bruno.projeto.banco.aplicacaobancariaspringboot.Repositories.ContaPFRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -53,20 +53,20 @@ public class ContaPFPoupancaController {
     public ResponseEntity<ContaPoupancaPFDTO> criarContaPoupancaPF(@RequestBody ContaPoupancaPF conta) {
         log.info("Request post para criar uma nova conta poupança PF com CPF: {}", conta.getConta().getCpf());
         conta.setActive(true);
-        Optional<ContaPF> contaPF = repository2.findByCpf(conta.getConta().getCpf());
-        if (repository.findByConta(contaPF.get()).isPresent()) {
-            log.info("Tentativa de criação de conta poupança PF com CPF já existente. CPF: ", conta.getConta().getCpf());
+        ContaPF contaPF = repository2.findByCpf(conta.getConta().getCpf()).orElseThrow(CPFNaoExistente::new);
+        if (repository.findByConta(contaPF).isPresent()) {
+            log.info("Tentativa de criação de conta poupança PF com CPF já existente. CPF:{} ", conta.getConta().getCpf());
             return ResponseEntity.badRequest().body(null);
         }
-        conta.setConta(contaPF.get());
+        conta.setConta(contaPF);
         return ResponseEntity.ok().body(service.criarConta(conta));
     }
 
     @PutMapping("/sacar/{cpf}")
     public ResponseEntity<ContaPoupancaPFDTO> sacarContaPoupancaPF(@PathVariable String cpf, @RequestParam Double valor) {
         log.info("Requisição post para sacar da conta poupança com CPF: {}", cpf);
-        Optional<ContaPF> contaPF = repository2.findByCpf(cpf);
-        Optional<ContaPoupancaPF> contaPoupancaPF = repository.findByConta(contaPF.get());
+        ContaPF contaPF = repository2.findByCpf(cpf).orElseThrow(CPFNaoExistente::new);
+        Optional<ContaPoupancaPF> contaPoupancaPF = repository.findByConta(contaPF);
         if (!contaPoupancaPF.get().isActive()) {
             throw new ContaDesativadaException();
         }
@@ -76,7 +76,7 @@ public class ContaPFPoupancaController {
     @PutMapping("/render/{cpf}")
     public ResponseEntity<ContaPoupancaPFDTO> renderAnualContaPoupancaPF(@PathVariable String cpf) {
         log.info("Requisição put para render na conta poupança PF com CPF: {}", cpf);
-        ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).get();
+        ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
         if (!contaPoupancaPF.isActive()) {
             throw new ContaDesativadaException();
         }
@@ -86,7 +86,7 @@ public class ContaPFPoupancaController {
     @PutMapping("/depositar/{cpf}")
     public ResponseEntity<ContaPoupancaPFDTO> depositarContaPFPoupanca(@PathVariable String cpf, @RequestParam Double valor) {
         log.info("Requisição put para depositar o valor de {} R$ na conta poupança PF com CPF: {}", valor, cpf);
-        ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).get();
+        ContaPoupancaPF contaPoupancaPF = repository.findByConta_Cpf(cpf).orElseThrow(CPFNaoExistente::new);
         if (!contaPoupancaPF.isActive()) {
             throw new ContaDesativadaException();
         }
